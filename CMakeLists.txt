@@ -1,0 +1,29 @@
+cmake_minimum_required(VERSION 2.6)
+PROJECT (SelfOperation)
+SET(TARGET_NAME "SelfOperation")
+SET(STATIC_NAME	"SelfOperation_lib")
+SET(SHARED_NAME	"SelfOperation_dll")
+SET(COMMON_NAME "SelfOperation")
+
+############FOR_MODIFIY_BEGIN#######################
+#Setting additional path
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR})
+
+#Setting Source Files
+SET(SRCS ${CMAKE_SOURCE_DIR}/Operation.cpp)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
+#ADD_LIBRARY(${STATIC_NAME} STATIC ${SRCS})
+# 对SelfOperation_lib的重名为SelfOperation
+#SET_TARGET_PROPERTIES(${STATIC_NAME} PROPERTIES  OUTPUT_NAME ${COMMON_NAME})
+# cmake 在构建一个新的target 时，会尝试清理掉其他使用这个名字的库，如果没有清理还是会只会构建一个动态库，不会构建出静态库
+#SET_TARGET_PROPERTIES(${STATIC_NAME} PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+
+ADD_LIBRARY(${SHARED_NAME} SHARED ${SRCS})
+# 对SelfOperation_dll的重名为SelfOperation
+SET_TARGET_PROPERTIES(${SHARED_NAME} PROPERTIES  OUTPUT_NAME ${COMMON_NAME})
+SET_TARGET_PROPERTIES(${SHARED_NAME} PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+############FOR_MODIFIY_END#########################
